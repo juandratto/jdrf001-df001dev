@@ -1,0 +1,9 @@
+{
+	"name": "jdrf001-df001dev",
+	"location": "southcentralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "b4d6892a-7945-4602-b68a-2cd78e97a700",
+		"tenantId": "2fcef92b-4ea2-43b9-b51c-3e2fcf57eefc"
+	}
+}
