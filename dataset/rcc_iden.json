@@ -14,6 +14,7 @@
 				"container": "cont01"
 			},
 			"columnDelimiter": "|",
+			"rowDelimiter": "\r",
 			"escapeChar": "\\",
 			"firstRowAsHeader": false,
 			"quoteChar": "\""
