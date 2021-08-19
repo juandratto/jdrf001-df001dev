@@ -15,7 +15,7 @@
 			},
 			"columnDelimiter": "|",
 			"rowDelimiter": "\r",
-			"escapeChar": "\\",
+			"escapeChar": "\"",
 			"firstRowAsHeader": false,
 			"quoteChar": "\""
 		},
