@@ -1,0 +1,121 @@
+{
+	"name": "dwh_rcc_iden",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dwh01_dev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "COD_SBS",
+				"type": "varchar"
+			},
+			{
+				"name": "FECHA1",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_RUC",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "RUC",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_DOC",
+				"type": "varchar"
+			},
+			{
+				"name": "DOCUMENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "TIP_PERSONA",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TIPO_EMPRESA",
+				"type": "varchar"
+			},
+			{
+				"name": "CANT_EMP",
+				"type": "varchar"
+			},
+			{
+				"name": "CAL_0",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "CAL_1",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "CAL_2",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "CAL_3",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "CAL_4",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "APE_PATERNO",
+				"type": "varchar"
+			},
+			{
+				"name": "APE_MATERNO",
+				"type": "varchar"
+			},
+			{
+				"name": "APE_CASADA",
+				"type": "varchar"
+			},
+			{
+				"name": "PR_NOMBRE",
+				"type": "varchar"
+			},
+			{
+				"name": "SG_NOMBRE",
+				"type": "varchar"
+			},
+			{
+				"name": "FECHA",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "CODMES",
+				"type": "varchar"
+			},
+			{
+				"name": "FECHA_CARGA",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "RCC_IDEN"
+		}
+	}
+}
