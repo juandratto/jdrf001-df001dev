@@ -4,49 +4,6 @@
 		"description": "pipeline de carga rcc txt a synapse analytics",
 		"activities": [
 			{
-				"name": "Copy data1",
-				"type": "Copy",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
-					},
-					"sink": {
-						"type": "SqlDWSink",
-						"allowCopyCommand": true
-					},
-					"enableStaging": false
-				},
-				"inputs": [
-					{
-						"referenceName": "rcc_iden",
-						"type": "DatasetReference"
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "dwh_rcc_iden",
-						"type": "DatasetReference"
-					}
-				]
-			},
-			{
 				"name": "FlujoRccIden",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
@@ -62,6 +19,12 @@
 					"dataflow": {
 						"referenceName": "FlujoRccIden",
 						"type": "DataFlowReference"
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "StagingLinkRccIden01",
+							"type": "LinkedServiceReference"
+						}
 					},
 					"compute": {
 						"coreCount": 8,
