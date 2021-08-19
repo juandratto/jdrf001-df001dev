@@ -13,50 +13,13 @@
 				"fileName": "rccslds_202001.txt",
 				"container": "cont01"
 			},
-			"columnDelimiter": "|",
+			"columnDelimiter": ",",
 			"escapeChar": "\\",
 			"firstRowAsHeader": false,
 			"quoteChar": "\""
 		},
 		"schema": [
 			{
-				"name": "2",
-				"type": "String"
-			},
-			{
-				"name": "0071709965",
-				"type": "String"
-			},
-			{
-				"name": "00072",
-				"type": "String"
-			},
-			{
-				"name": "10",
-				"type": "String"
-			},
-			{
-				"name": "81130200000000",
-				"type": "String"
-			},
-			{
-				"name": "2531",
-				"type": "String"
-			},
-			{
-				"name": "1675.920000",
-				"type": "String"
-			},
-			{
-				"name": "4",
-				"type": "String"
-			},
-			{
-				"name": "20200131",
-				"type": "String"
-			},
-			{
-				"name": "202001",
 				"type": "String"
 			}
 		]
