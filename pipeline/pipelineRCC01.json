@@ -1,0 +1,7 @@
+{
+	"name": "pipelineRCC01",
+	"properties": {
+		"description": "pipeline de carga rcc txt a synapse analytics",
+		"annotations": []
+	}
+}
