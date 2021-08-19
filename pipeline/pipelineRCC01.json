@@ -27,11 +27,21 @@
 							"type": "DelimitedTextReadSettings"
 						}
 					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowCopyCommand": true
+					},
 					"enableStaging": false
 				},
 				"inputs": [
 					{
 						"referenceName": "rcc_iden",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "dwh_rcc_iden",
 						"type": "DatasetReference"
 					}
 				]
