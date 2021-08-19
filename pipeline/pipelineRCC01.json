@@ -22,9 +22,10 @@
 					},
 					"staging": {
 						"linkedService": {
-							"referenceName": "StagingLinkRccIden01",
+							"referenceName": "AzureBlobStorage1",
 							"type": "LinkedServiceReference"
-						}
+						},
+						"folderPath": "stg01"
 					},
 					"compute": {
 						"coreCount": 8,
