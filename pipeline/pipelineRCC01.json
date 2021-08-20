@@ -18,7 +18,10 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "FlujoRccIden",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"parameters": {
+							"nomArchRccIden": "rcciden_202001.txt"
+						}
 					},
 					"staging": {
 						"linkedService": {
