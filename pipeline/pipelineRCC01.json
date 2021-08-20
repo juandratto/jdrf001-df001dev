@@ -44,7 +44,7 @@
 		"parameters": {
 			"par1": {
 				"type": "string",
-				"defaultValue": "rcciden_2021.txt"
+				"defaultValue": "rcciden_202001.txt"
 			}
 		},
 		"annotations": []
