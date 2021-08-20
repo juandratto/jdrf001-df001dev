@@ -44,7 +44,11 @@
 		"parameters": {
 			"par1": {
 				"type": "string",
-				"defaultValue": "rcciden_202001.txt"
+				"defaultValue": "rcciden_202002.txt"
+			},
+			"parCodFecha": {
+				"type": "string",
+				"defaultValue": "202002"
 			}
 		},
 		"annotations": []
