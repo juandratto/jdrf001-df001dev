@@ -20,7 +20,7 @@
 						"referenceName": "FlujoRccIden",
 						"type": "DataFlowReference",
 						"parameters": {
-							"nomArchRccIden": "rcciden_202001.txt"
+							"nomArchRccIden": "\"rcciden_202001.txt\""
 						}
 					},
 					"staging": {
