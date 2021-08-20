@@ -16,7 +16,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "rcciden_202001.txt",
+				"fileName": {
+					"value": "@dataset().nomArchRccIden",
+					"type": "Expression"
+				},
 				"container": "cont01"
 			},
 			"columnDelimiter": "|",
