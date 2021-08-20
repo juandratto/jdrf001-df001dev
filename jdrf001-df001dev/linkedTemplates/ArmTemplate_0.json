@@ -1,0 +1,529 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Nombre de instancia de Data Factory",
+			"defaultValue": "jdrf001-df001dev"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"connectionString\"de \"AzureBlobStorage1\""
+		},
+		"dwh01_dev_connectionString": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"connectionString\"de \"dwh01_dev\""
+		},
+		"StagingLinkRccIden01_accountKey": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"accountKey\"de \"StagingLinkRccIden01\""
+		},
+		"StagingLinkRccIden01_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://jdrf1986sa01dev.dfs.core.windows.net"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/default')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
+			"apiVersion": "2018-06-01",
+			"properties": {},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime001')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"description": "Entorno de ejecución 001",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 10,
+							"cleanup": false
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AutoResolveIntegrationRuntime')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 0
+						}
+					}
+				},
+				"managedVirtualNetwork": {
+					"type": "ManagedVirtualNetworkReference",
+					"referenceName": "default"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Link service azure datalake ",
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime001",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime001')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dwh01_dev')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "dwh analytics 01 - dev",
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"connectionString": "[parameters('dwh01_dev_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime001",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime001')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/rcc_iden')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "rcciden_202001.txt",
+						"container": "cont01"
+					},
+					"columnDelimiter": "|",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/rcc_slds')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "rccslds_202001.txt",
+						"container": "cont01"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dwh_rcc_iden')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "dwh01_dev",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [
+					{
+						"name": "COD_SBS",
+						"type": "varchar"
+					},
+					{
+						"name": "FECHA1",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_RUC",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "RUC",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_DOC",
+						"type": "varchar"
+					},
+					{
+						"name": "DOCUMENTO",
+						"type": "varchar"
+					},
+					{
+						"name": "TIP_PERSONA",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TIPO_EMPRESA",
+						"type": "varchar"
+					},
+					{
+						"name": "CANT_EMP",
+						"type": "varchar"
+					},
+					{
+						"name": "CAL_0",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 2
+					},
+					{
+						"name": "CAL_1",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 2
+					},
+					{
+						"name": "CAL_2",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 2
+					},
+					{
+						"name": "CAL_3",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 2
+					},
+					{
+						"name": "CAL_4",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 2
+					},
+					{
+						"name": "APE_PATERNO",
+						"type": "varchar"
+					},
+					{
+						"name": "APE_MATERNO",
+						"type": "varchar"
+					},
+					{
+						"name": "APE_CASADA",
+						"type": "varchar"
+					},
+					{
+						"name": "PR_NOMBRE",
+						"type": "varchar"
+					},
+					{
+						"name": "SG_NOMBRE",
+						"type": "varchar"
+					},
+					{
+						"name": "FECHA",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "CODMES",
+						"type": "varchar"
+					},
+					{
+						"name": "FECHA_CARGA",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "RCC_IDEN"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/dwh01_dev')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/StagingLinkRccIden01')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('StagingLinkRccIden01_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('StagingLinkRccIden01_accountKey')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FlujoRccIden')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "rcc_iden",
+								"type": "DatasetReference"
+							},
+							"name": "RccIdenTxt"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "dwh_rcc_iden",
+								"type": "DatasetReference"
+							},
+							"name": "Dwh01"
+						}
+					],
+					"transformations": [
+						{
+							"name": "Transform01"
+						}
+					],
+					"script": "parameters{\n\tnomArchRccIden as string (\"rcciden_202001.txt\")\n}\nsource(output(\n\t\tColumn_1 as string,\n\t\tColumn_2 as string,\n\t\tColumn_3 as string,\n\t\tColumn_4 as string,\n\t\tColumn_5 as string,\n\t\tColumn_6 as string,\n\t\tColumn_7 as string,\n\t\tColumn_8 as string,\n\t\tColumn_9 as string,\n\t\tColumn_10 as string,\n\t\tColumn_11 as string,\n\t\tColumn_12 as string,\n\t\tColumn_13 as string,\n\t\tColumn_14 as string,\n\t\tColumn_15 as string,\n\t\tColumn_16 as string,\n\t\tColumn_17 as string,\n\t\tColumn_18 as string,\n\t\tColumn_19 as string,\n\t\tColumn_20 as string,\n\t\tColumn_21 as string,\n\t\tColumn_22 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\twildcardPaths:[($nomArchRccIden)]) ~> RccIdenTxt\nRccIdenTxt derive(fec_carga = currentTimestamp()) ~> Transform01\nTransform01 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tCOD_SBS as string,\n\t\tFECHA1 as string,\n\t\tTIPO_RUC as integer,\n\t\tRUC as string,\n\t\tTIPO_DOC as string,\n\t\tDOCUMENTO as string,\n\t\tTIP_PERSONA as integer,\n\t\tTIPO_EMPRESA as string,\n\t\tCANT_EMP as string,\n\t\tCAL_0 as decimal(18,2),\n\t\tCAL_1 as decimal(18,2),\n\t\tCAL_2 as decimal(18,2),\n\t\tCAL_3 as decimal(18,2),\n\t\tCAL_4 as decimal(18,2),\n\t\tAPE_PATERNO as string,\n\t\tAPE_MATERNO as string,\n\t\tAPE_CASADA as string,\n\t\tPR_NOMBRE as string,\n\t\tSG_NOMBRE as string,\n\t\tFECHA as timestamp,\n\t\tCODMES as string,\n\t\tFECHA_CARGA as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tstaged: true,\n\tallowCopyCommand: true,\n\tpreSQLs:['TRUNCATE TABLE RCC_IDEN'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tCOD_SBS = Column_1,\n\t\tFECHA1 = Column_2,\n\t\tTIPO_RUC = Column_3,\n\t\tRUC = Column_4,\n\t\tTIPO_DOC = Column_5,\n\t\tDOCUMENTO = Column_6,\n\t\tTIP_PERSONA = Column_7,\n\t\tTIPO_EMPRESA = Column_8,\n\t\tCANT_EMP = Column_9,\n\t\tCAL_0 = Column_10,\n\t\tCAL_1 = Column_11,\n\t\tCAL_2 = Column_12,\n\t\tCAL_3 = Column_13,\n\t\tCAL_4 = Column_14,\n\t\tAPE_PATERNO = Column_15,\n\t\tAPE_MATERNO = Column_16,\n\t\tAPE_CASADA = Column_17,\n\t\tPR_NOMBRE = Column_18,\n\t\tSG_NOMBRE = Column_19,\n\t\tFECHA = Column_20,\n\t\tCODMES = Column_21,\n\t\tFECHA_CARGA = fec_carga\n\t)) ~> Dwh01"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/rcc_iden')]",
+				"[concat(variables('factoryId'), '/datasets/dwh_rcc_iden')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipelineRCC01')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "pipeline de carga rcc txt a synapse analytics",
+				"activities": [
+					{
+						"name": "FlujoRccIden",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "FlujoRccIden",
+								"type": "DataFlowReference",
+								"parameters": {
+									"nomArchRccIden": {
+										"value": "'@{pipeline().parameters.par1}'",
+										"type": "Expression"
+									}
+								},
+								"datasetParameters": {
+									"RccIdenTxt": {},
+									"Dwh01": {}
+								}
+							},
+							"staging": {
+								"linkedService": {
+									"referenceName": "AzureBlobStorage1",
+									"type": "LinkedServiceReference"
+								},
+								"folderPath": "stg01"
+							},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"parameters": {
+					"par1": {
+						"type": "string",
+						"defaultValue": "rcciden_202001.txt"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]",
+				"[concat(variables('factoryId'), '/dataflows/FlujoRccIden')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		}
+	]
+}
