@@ -5,21 +5,12 @@
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"nomArchRccIden": {
-				"type": "string",
-				"defaultValue": "rcciden_202001.txt"
-			}
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().nomArchRccIden",
-					"type": "Expression"
-				},
+				"fileName": "rcciden_202001.txt",
 				"container": "cont01"
 			},
 			"columnDelimiter": "|",
