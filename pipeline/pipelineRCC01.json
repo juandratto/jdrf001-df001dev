@@ -10,7 +10,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@greater(int(variables('var1')),int(variables('var2')))",
+						"value": "@greater(int(variables('vFecIni')),int(variables('vFecFin')))",
 						"type": "Expression"
 					},
 					"activities": [
