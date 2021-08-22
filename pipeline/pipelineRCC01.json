@@ -37,11 +37,12 @@
 									"linkedService": {
 										"referenceName": "StagingLinkRccIden01",
 										"type": "LinkedServiceReference"
-									}
+									},
+									"folderPath": "stg01"
 								},
-								"compute": {
-									"coreCount": 8,
-									"computeType": "General"
+								"integrationRuntime": {
+									"referenceName": "integrationRuntime001",
+									"type": "IntegrationRuntimeReference"
 								},
 								"traceLevel": "Fine"
 							}
