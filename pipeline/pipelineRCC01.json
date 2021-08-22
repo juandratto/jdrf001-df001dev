@@ -27,7 +27,10 @@
 									"referenceName": "FlujoRccIden",
 									"type": "DataFlowReference",
 									"parameters": {
-										"codFecha": "\"202001\""
+										"codFecha": {
+											"value": "'@{pipeline().parameters.parCodFecha}'",
+											"type": "Expression"
+										}
 									}
 								},
 								"compute": {
@@ -43,10 +46,6 @@
 			}
 		],
 		"parameters": {
-			"par1": {
-				"type": "string",
-				"defaultValue": "rcciden_202002.txt"
-			},
 			"parCodFecha": {
 				"type": "string",
 				"defaultValue": "202002"
