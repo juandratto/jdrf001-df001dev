@@ -1,0 +1,66 @@
+{
+	"name": "dwh_rcc_slds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dwh01_dev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "C_TR",
+				"type": "varchar"
+			},
+			{
+				"name": "C_COD_SBS",
+				"type": "varchar"
+			},
+			{
+				"name": "C_COD_EMP",
+				"type": "varchar"
+			},
+			{
+				"name": "C_TC",
+				"type": "varchar"
+			},
+			{
+				"name": "C_CTA_CBLE",
+				"type": "varchar"
+			},
+			{
+				"name": "C_COND_DIAR",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "C_SALDO",
+				"type": "decimal",
+				"precision": 22,
+				"scale": 6
+			},
+			{
+				"name": "C_CLASIF",
+				"type": "varchar"
+			},
+			{
+				"name": "FECHA",
+				"type": "varchar"
+			},
+			{
+				"name": "CODMES",
+				"type": "varchar"
+			},
+			{
+				"name": "FECHA_CARGA",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "RCC_SALDOS"
+		}
+	}
+}
