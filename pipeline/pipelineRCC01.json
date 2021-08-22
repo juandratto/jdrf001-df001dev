@@ -20,10 +20,6 @@
 						"referenceName": "FlujoRccIden",
 						"type": "DataFlowReference",
 						"parameters": {
-							"nomArchRccIden": {
-								"value": "'@{pipeline().parameters.par1}'",
-								"type": "Expression"
-							},
 							"codFecha": {
 								"value": "'@{pipeline().parameters.parCodFecha}'",
 								"type": "Expression"
