@@ -4,40 +4,41 @@
 		"description": "pipeline de carga rcc txt a synapse analytics",
 		"activities": [
 			{
-				"name": "FlujoRccIden",
-				"type": "ExecuteDataFlow",
+				"name": "Until1",
+				"type": "Until",
 				"dependsOn": [],
-				"policy": {
-					"timeout": "1.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataflow": {
-						"referenceName": "FlujoRccIden",
-						"type": "DataFlowReference",
-						"parameters": {
-							"codFecha": {
-								"value": "'@{pipeline().parameters.parCodFecha}'",
-								"type": "Expression"
+					"activities": [
+						{
+							"name": "FlujoRccIden",
+							"type": "ExecuteDataFlow",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "1.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataflow": {
+									"referenceName": "FlujoRccIden",
+									"type": "DataFlowReference",
+									"parameters": {
+										"codFecha": "\"202001\""
+									}
+								},
+								"compute": {
+									"coreCount": 8,
+									"computeType": "General"
+								},
+								"traceLevel": "Fine"
 							}
 						}
-					},
-					"staging": {
-						"linkedService": {
-							"referenceName": "AzureBlobStorage1",
-							"type": "LinkedServiceReference"
-						},
-						"folderPath": "stg01"
-					},
-					"compute": {
-						"coreCount": 8,
-						"computeType": "General"
-					},
-					"traceLevel": "Fine"
+					],
+					"timeout": "7.00:00:00"
 				}
 			}
 		],
