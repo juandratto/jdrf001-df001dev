@@ -10,7 +10,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "greater(@pipeline().parameters.CodFecIni; pipeline().parameters.CodFecFin) ",
+						"value": "@greater(int(variables('var1')),int(variables('var2')))",
 						"type": "Expression"
 					},
 					"activities": [
@@ -50,6 +50,23 @@
 								},
 								"traceLevel": "Fine"
 							}
+						},
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "FlujoRccIden",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "vFecIni",
+								"value": ""
+							}
 						}
 					],
 					"timeout": "7.00:00:00"
@@ -72,6 +89,19 @@
 			"CodFecAct": {
 				"type": "int",
 				"defaultValue": 202001
+			}
+		},
+		"variables": {
+			"vFecIni": {
+				"type": "String",
+				"defaultValue": "202001"
+			},
+			"vFecFin": {
+				"type": "String",
+				"defaultValue": "202004"
+			},
+			"vFecha": {
+				"type": "String"
 			}
 		},
 		"annotations": []
