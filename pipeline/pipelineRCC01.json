@@ -96,24 +96,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"parCodFecha": {
-				"type": "string",
-				"defaultValue": "202002"
-			},
-			"CodFecIni": {
-				"type": "int",
-				"defaultValue": 202001
-			},
-			"CodFecFin": {
-				"type": "int",
-				"defaultValue": 202004
-			},
-			"CodFecAct": {
-				"type": "int",
-				"defaultValue": 202001
-			}
-		},
 		"variables": {
 			"vFecIni": {
 				"type": "String",
