@@ -9,6 +9,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"expression": {
+						"value": "greater(@pipeline().parameters.CodFecIni; pipeline().parameters.CodFecFin) ",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "FlujoRccIden",
@@ -56,6 +60,18 @@
 			"parCodFecha": {
 				"type": "string",
 				"defaultValue": "202002"
+			},
+			"CodFecIni": {
+				"type": "int",
+				"defaultValue": 202001
+			},
+			"CodFecFin": {
+				"type": "int",
+				"defaultValue": 202004
+			},
+			"CodFecAct": {
+				"type": "int",
+				"defaultValue": 202001
 			}
 		},
 		"annotations": []
