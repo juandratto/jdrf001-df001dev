@@ -33,6 +33,12 @@
 										}
 									}
 								},
+								"staging": {
+									"linkedService": {
+										"referenceName": "StagingLinkRccIden01",
+										"type": "LinkedServiceReference"
+									}
+								},
 								"compute": {
 									"coreCount": 8,
 									"computeType": "General"
