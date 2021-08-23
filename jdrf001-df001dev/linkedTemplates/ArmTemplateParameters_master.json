@@ -8,10 +8,10 @@
 		"AzureBlobStorage1_connectionString": {
 			"value": ""
 		},
-		"dwh01_dev_connectionString": {
+		"StagingLinkRccIden01_accountKey": {
 			"value": ""
 		},
-		"StagingLinkRccIden01_accountKey": {
+		"dwh01_dev_connectionString": {
 			"value": ""
 		},
 		"StagingLinkRccIden01_properties_typeProperties_url": {
